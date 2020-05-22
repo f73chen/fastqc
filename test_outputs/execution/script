@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cd /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution
+tmpDir=$(mkdir -p "/home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/tmp.e0e504d7" && echo "/home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/tmp.e0e504d7")
+
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution
+
+)
+outa11f1da6="${tmpDir}/out.$$" erra11f1da6="${tmpDir}/err.$$"
+mkfifo "$outa11f1da6" "$erra11f1da6"
+trap 'rm "$outa11f1da6" "$erra11f1da6"' EXIT
+tee '/home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution/stdout' < "$outa11f1da6" &
+tee '/home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution/stderr' < "$erra11f1da6" >&2 &
+(
+cd /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution
+
+
+set -euo pipefail
+if [[ adrenal_1_fastqc.zip != "adrenal_1_fastqc.zip" ]];then 
+  ln -s /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/inputs/-2062536757/adrenal_1_fastqc.zip "adrenal_1_fastqc.zip"
+else
+  ln -s /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/inputs/-2062536757/adrenal_1_fastqc.zip
+fi
+)  > "$outa11f1da6" 2> "$erra11f1da6"
+echo $? > /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution
+sync
+
+
+)
+mv /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution/rc.tmp /home/ubuntu/fastqc/fastqc/cromwell-executions/fastQC/a11f1da6-194e-439d-87b3-8ea5ade84778/call-firstMateZip/execution/rc
