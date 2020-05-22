@@ -1,0 +1,5 @@
+{
+  "fastQC.fastqR1": "/home/ubuntu/repos/fastqc/test_data/input_data/adrenal_1.fastq.gz",
+  "fastQC.fastqR2": "/home/ubuntu/repos/fastqc/test_data/input_data/adrenal_2.fastq.gz"
+}
+
