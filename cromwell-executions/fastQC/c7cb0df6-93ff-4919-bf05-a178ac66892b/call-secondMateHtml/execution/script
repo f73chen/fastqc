@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cd /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution
+tmpDir=$(mkdir -p "/cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/tmp.70863fca" && echo "/cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/tmp.70863fca")
+chmod 777 "$tmpDir"
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution
+
+)
+outc7cb0df6="${tmpDir}/out.$$" errc7cb0df6="${tmpDir}/err.$$"
+mkfifo "$outc7cb0df6" "$errc7cb0df6"
+trap 'rm "$outc7cb0df6" "$errc7cb0df6"' EXIT
+tee '/cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution/stdout' < "$outc7cb0df6" &
+tee '/cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution/stderr' < "$errc7cb0df6" >&2 &
+(
+cd /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution
+
+
+set -euo pipefail
+if [[ adrenal_2_fastqc.html != "adrenal_2_fastqc.html" ]];then 
+  ln -s /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/inputs/-1660597080/adrenal_2_fastqc.html "adrenal_2_fastqc.html"
+else
+  ln -s /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/inputs/-1660597080/adrenal_2_fastqc.html
+fi
+)  > "$outc7cb0df6" 2> "$errc7cb0df6"
+echo $? > /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution
+sync
+
+
+)
+mv /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution/rc.tmp /cromwell-executions/fastQC/c7cb0df6-93ff-4919-bf05-a178ac66892b/call-secondMateHtml/execution/rc

@@ -88,7 +88,7 @@ parameter_meta {
 }
 
 runtime {
-  docker: "g3chen/fastqc-dockstore4:1.0"
+  docker: "quay.io/biocontainers/fastqc:0.11.9--0"
   memory:  "~{jobMemory} GB"
   modules: "~{modules}"
   timeout: "~{timeout}"
@@ -130,7 +130,7 @@ command <<<
 >>>
 
 runtime {
-  docker: "g3chen/fastqc-dockstore4:1.0"
+  docker: "quay.io/biocontainers/fastqc:0.11.9--0"
   memory:  "~{jobMemory} GB"
   timeout: "~{timeout}"
 }

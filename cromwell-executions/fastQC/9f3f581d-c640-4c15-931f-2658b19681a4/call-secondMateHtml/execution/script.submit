@@ -1,0 +1,20 @@
+#!/bin/bash
+# make sure there is no preexisting Docker CID file
+rm -f /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml/execution/docker_cid
+# run as in the original configuration without --rm flag (will remove later)
+docker run \
+  --cidfile /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml/execution/docker_cid \
+  -i \
+   \
+  --entrypoint /bin/bash \
+  -v /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml:/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml:delegated \
+  quay.io/biocontainers/fastqc@sha256:319b8d4eca0fc0367d192941f221f7fcd29a6b96996c63cbf8931dbb66e53348 /cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml/execution/script
+
+# get the return code (working even if the container was detached)
+rc=$(docker wait `cat /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml/execution/docker_cid`)
+
+# remove the container after waiting
+docker rm `cat /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateHtml/execution/docker_cid`
+
+# return exit code
+exit $rc
