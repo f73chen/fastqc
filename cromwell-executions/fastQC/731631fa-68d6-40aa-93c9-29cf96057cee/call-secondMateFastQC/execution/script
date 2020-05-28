@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cd /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution
+tmpDir=$(mkdir -p "/cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/tmp.de9174dd" && echo "/cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/tmp.de9174dd")
+chmod 777 "$tmpDir"
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution
+
+)
+out731631fa="${tmpDir}/out.$$" err731631fa="${tmpDir}/err.$$"
+mkfifo "$out731631fa" "$err731631fa"
+trap 'rm "$out731631fa" "$err731631fa"' EXIT
+tee '/cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution/stdout' < "$out731631fa" &
+tee '/cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution/stderr' < "$err731631fa" >&2 &
+(
+cd /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution
+
+
+set -euo pipefail
+FASTQC=$(which fastqc)
+JAVA=$(which java)
+perl $FASTQC /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/inputs/2105055555/adrenal_2.fastq.gz --java=$JAVA --noextract --outdir "."
+)  > "$out731631fa" 2> "$err731631fa"
+echo $? > /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution
+sync
+
+
+)
+mv /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution/rc.tmp /cromwell-executions/fastQC/731631fa-68d6-40aa-93c9-29cf96057cee/call-secondMateFastQC/execution/rc

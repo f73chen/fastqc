@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution
+tmpDir=$(mkdir -p "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/tmp.77d85f7e" && echo "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/tmp.77d85f7e")
+chmod 777 "$tmpDir"
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution
+
+)
+outaf26477e="${tmpDir}/out.$$" erraf26477e="${tmpDir}/err.$$"
+mkfifo "$outaf26477e" "$erraf26477e"
+trap 'rm "$outaf26477e" "$erraf26477e"' EXIT
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution/stdout' < "$outaf26477e" &
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution/stderr' < "$erraf26477e" >&2 &
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution
+
+
+set -euo pipefail
+FASTQC=$(which fastqc)
+JAVA=$(which java)
+perl $FASTQC /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/inputs/2105055555/adrenal_1.fastq.gz --java=$JAVA --noextract --outdir "."
+)  > "$outaf26477e" 2> "$erraf26477e"
+echo $? > /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution
+sync
+
+
+)
+mv /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution/rc.tmp /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateFastQC/execution/rc

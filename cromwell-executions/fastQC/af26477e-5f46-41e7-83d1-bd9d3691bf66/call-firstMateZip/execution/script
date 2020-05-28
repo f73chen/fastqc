@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution
+tmpDir=$(mkdir -p "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/tmp.7bfc6a94" && echo "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/tmp.7bfc6a94")
+chmod 777 "$tmpDir"
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution
+
+)
+outaf26477e="${tmpDir}/out.$$" erraf26477e="${tmpDir}/err.$$"
+mkfifo "$outaf26477e" "$erraf26477e"
+trap 'rm "$outaf26477e" "$erraf26477e"' EXIT
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution/stdout' < "$outaf26477e" &
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution/stderr' < "$erraf26477e" >&2 &
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution
+
+
+set -euo pipefail
+if [[ adrenal_1_fastqc.zip != "adrenal_1_fastqc.zip" ]];then 
+  ln -s /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/inputs/1542318015/adrenal_1_fastqc.zip "adrenal_1_fastqc.zip"
+else
+  ln -s /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/inputs/1542318015/adrenal_1_fastqc.zip
+fi
+)  > "$outaf26477e" 2> "$erraf26477e"
+echo $? > /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution
+sync
+
+
+)
+mv /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution/rc.tmp /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-firstMateZip/execution/rc

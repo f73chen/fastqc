@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution
+tmpDir=$(mkdir -p "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/tmp.9ae720ec" && echo "/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/tmp.9ae720ec")
+chmod 777 "$tmpDir"
+export _JAVA_OPTIONS=-Djava.io.tmpdir="$tmpDir"
+export TMPDIR="$tmpDir"
+export HOME="$HOME"
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution
+
+)
+outaf26477e="${tmpDir}/out.$$" erraf26477e="${tmpDir}/err.$$"
+mkfifo "$outaf26477e" "$erraf26477e"
+trap 'rm "$outaf26477e" "$erraf26477e"' EXIT
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution/stdout' < "$outaf26477e" &
+tee '/cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution/stderr' < "$erraf26477e" >&2 &
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution
+
+
+set -euo pipefail
+if [[ adrenal_2_fastqc.zip != "adrenal_2_fastqc.zip" ]];then 
+  ln -s /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/inputs/1204213181/adrenal_2_fastqc.zip "adrenal_2_fastqc.zip"
+else
+  ln -s /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/inputs/1204213181/adrenal_2_fastqc.zip
+fi
+)  > "$outaf26477e" 2> "$erraf26477e"
+echo $? > /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution/rc.tmp
+(
+# add a .file in every empty directory to facilitate directory delocalization on the cloud
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution
+find . -type d -exec sh -c '[ -z "$(ls -A '"'"'{}'"'"')" ] && touch '"'"'{}'"'"'/.file' \;
+)
+(
+cd /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution
+sync
+
+
+)
+mv /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution/rc.tmp /cromwell-executions/fastQC/af26477e-5f46-41e7-83d1-bd9d3691bf66/call-secondMateZip/execution/rc
