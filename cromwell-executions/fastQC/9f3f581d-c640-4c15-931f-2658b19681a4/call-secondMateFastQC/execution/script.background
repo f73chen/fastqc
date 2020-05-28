@@ -1,3 +1,0 @@
-#!/bin/bash
-'/bin/bash' '/home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateFastQC/execution/script.submit' < /dev/null || { rc=$?; if [ "$rc" -gt "128" ]; then echo $rc; else echo -1; fi } > /home/ubuntu/repos/fastqc/cromwell-executions/fastQC/9f3f581d-c640-4c15-931f-2658b19681a4/call-secondMateFastQC/execution/rc &
-echo $!
