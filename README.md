@@ -10,6 +10,6 @@ Make a runtime JSON template and fill in desired inputs, outputs, and other para
     
     vim Dockstore.json
     
-Run locally with the Dockstore CLI
+Run locally with the Dockstore CLI, with working directory in this repo
     
     dockstore workflow launch --entry github.com/g3chen/fastqc/fastqc_imported:master --json Dockstore.json
