@@ -83,6 +83,7 @@ command <<<
 >>>
 
 parameter_meta {
+ docker: "Docker container to run the workflow in"
  jobMemory: "Memory allocated to fastqc."
  inputFastq: "Input fastq file, gzipped."
  modules: "Names and versions of required modules."
@@ -90,7 +91,7 @@ parameter_meta {
 }
 
 runtime {
-  docker: docker
+  docker:  "~{docker}"
   memory:  "~{jobMemory} GB"
   modules: "~{modules}"
   timeout: "~{timeout}"
@@ -116,6 +117,7 @@ input {
 }
 
 parameter_meta {
+ docker: "Docker container to run the workflow in"
  inputFile: "Input file, html or zip."
  extension: "Extension for a file (without leading dot)."
  customPrefix: "Prefix for making a file."
@@ -133,7 +135,7 @@ command <<<
 >>>
 
 runtime {
-  docker: docker
+  docker:  "~{docker}"
   memory:  "~{jobMemory} GB"
   timeout: "~{timeout}"
 }
