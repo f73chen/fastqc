@@ -10,21 +10,22 @@ input {
         String outputFileNamePrefix = ""
         String r1Suffix = "_R1"
         String r2Suffix = "_R2"
+		String docker = "quay.io/biocontainers/fastqc:0.11.9--0"
 }
 Array[File] inputFastqs = select_all([fastqR1,fastqR2])
 String outputPrefixOne = if outputFileNamePrefix == "" then basename(inputFastqs[0], '.fastq.gz') + "_fastqc"
                                                        else outputFileNamePrefix + r1Suffix
 
-call runFastQC as firstMateFastQC { input: inputFastq = inputFastqs[0] }
-call renameOutput as firstMateHtml { input: inputFile = firstMateFastQC.html_report_file, extension = "html", customPrefix = outputPrefixOne }
-call renameOutput as firstMateZip { input: inputFile = firstMateFastQC.zip_bundle_file, extension = "zip", customPrefix = outputPrefixOne }
+call runFastQC as firstMateFastQC { input: inputFastq = inputFastqs[0], docker = docker }
+call renameOutput as firstMateHtml { input: inputFile = firstMateFastQC.html_report_file, extension = "html", customPrefix = outputPrefixOne, docker = docker }
+call renameOutput as firstMateZip { input: inputFile = firstMateFastQC.zip_bundle_file, extension = "zip", customPrefix = outputPrefixOne, docker = docker }
 
 if (length(inputFastqs) > 1) {
  String outputPrefixTwo = if outputFileNamePrefix=="" then basename(inputFastqs[1], '.fastq.gz') + "_fastqc"
                                                       else outputFileNamePrefix + r2Suffix
- call runFastQC as secondMateFastQC { input: inputFastq = inputFastqs[1] }
- call renameOutput as secondMateHtml { input: inputFile = secondMateFastQC.html_report_file, extension = "html", customPrefix = outputPrefixTwo }
- call renameOutput as secondMateZip { input: inputFile = secondMateFastQC.zip_bundle_file, extension = "zip", customPrefix = outputPrefixTwo }
+ call runFastQC as secondMateFastQC { input: inputFastq = inputFastqs[1], docker = docker }
+ call renameOutput as secondMateHtml { input: inputFile = secondMateFastQC.html_report_file, extension = "html", customPrefix = outputPrefixTwo, docker = docker }
+ call renameOutput as secondMateZip { input: inputFile = secondMateFastQC.zip_bundle_file, extension = "zip", customPrefix = outputPrefixTwo, docker = docker }
 }
 
 parameter_meta {
@@ -71,6 +72,7 @@ input {
         Int    timeout   = 20
         File   inputFastq
         String modules = "perl/5.28 java/8 fastqc/0.11.8"
+		String docker
 }
 
 command <<<
@@ -88,7 +90,7 @@ parameter_meta {
 }
 
 runtime {
-  docker: "quay.io/biocontainers/fastqc:0.11.9--0"
+  docker: docker
   memory:  "~{jobMemory} GB"
   modules: "~{modules}"
   timeout: "~{timeout}"
@@ -110,6 +112,7 @@ input {
   String extension
   String customPrefix
   Int timeout    = 1
+  String docker
 }
 
 parameter_meta {
@@ -130,7 +133,7 @@ command <<<
 >>>
 
 runtime {
-  docker: "quay.io/biocontainers/fastqc:0.11.9--0"
+  docker: docker
   memory:  "~{jobMemory} GB"
   timeout: "~{timeout}"
 }
