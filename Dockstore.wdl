@@ -10,7 +10,7 @@ input {
         String outputFileNamePrefix = ""
         String r1Suffix = "_R1"
         String r2Suffix = "_R2"
-		String docker = "quay.io/biocontainers/fastqc:0.11.9--0"
+        String docker = "quay.io/biocontainers/fastqc:0.11.9--0"
 }
 Array[File] inputFastqs = select_all([fastqR1,fastqR2])
 String outputPrefixOne = if outputFileNamePrefix == "" then basename(inputFastqs[0], '.fastq.gz') + "_fastqc"
@@ -34,6 +34,7 @@ parameter_meta {
   outputFileNamePrefix: "Output prefix, customizable. Default is the first file's basename."
   r1Suffix: "Suffix for R1 file."
   r2Suffix: "Suffix for R2 file."
+  docker: "Docker container to run the workflow in"
 }
 
 meta {
@@ -72,7 +73,7 @@ input {
         Int    timeout   = 20
         File   inputFastq
         String modules = "perl/5.28 java/8 fastqc/0.11.8"
-		String docker
+        String docker
 }
 
 command <<<
