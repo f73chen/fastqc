@@ -1,22 +1,26 @@
-FROM ubuntu:18.04
+FROM modulator:latest
 
-MAINTAINER Fenglin Chen <g3chen@oicr.on.ca>
+MAINTAINER Fenglin Chen <f73chen@uwaterloo.ca>
 
+# packages should already be set up in modulator:latest
 USER root
 
-# need java-11, gzip (gunzip), and fastqc
-RUN apt-get -m update && apt-get install -y gzip openjdk-11-jre fastqc
+# move in the yaml to build modulefiles from
+COPY fastqc_recipe.yaml /modulator/code/gsi/recipe.yaml
 
-# copy in fastqc-required scripts calculate.sh and compare.sh into bin
-COPY calculate.sh compare.sh /usr/local/bin/
+# build the modules and set folder & file permissions
+RUN ./build-local-code /modulator/code/gsi/recipe.yaml --initsh /usr/share/modules/init/sh --output /modules && \
+	find /modules -type d -exec chmod 777 {} \; && \
+	find /modules -type f -exec chmod 777 {} \;
 
-# set required permissions
-RUN chmod a+x /usr/local/bin/calculate.sh && chmod a+x /usr/local/bin/compare.sh
-
-# COPY womtool-50.jar cromwell-50.jar /usr/local/bin
-
+# add the user
 RUN groupadd -r -g 1000 ubuntu && useradd -r -g ubuntu -u 1000 ubuntu
 USER ubuntu
 
-CMD [/bin/bash]
+# copy the setup file to load the modules at startup
+COPY .bashrc /home/ubuntu/.bashrc
 
+# set environment paths for modules
+#ENV
+
+CMD /bin/bash

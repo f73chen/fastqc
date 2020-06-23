@@ -1,4 +1,0 @@
-{
-  "fastQC.fastqR2": "test_data/input_data/adrenal_2.fastq.gz",
-  "fastQC.fastqR1": "test_data/input_data/adrenal_1.fastq.gz"
-}

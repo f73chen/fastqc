@@ -1,0 +1,4 @@
+{
+  "fastQC.fastqR1": "/.mounts/labs/gsi/testdata/fastQC/input_data/adrenal_1.fastq.gz",
+  "fastQC.fastqR2": "/.mounts/labs/gsi/testdata/fastQC/input_data/adrenal_2.fastq.gz"
+}
