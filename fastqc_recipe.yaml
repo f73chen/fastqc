@@ -1,3 +1,20 @@
+# perl/5.30
+- name: perl
+  version: "5.30"
+  build_type: perl
+  build_args:
+    prereq_args:
+      prereq_args:
+        md5: f399f3aaee90ddcff5eadd3bccdaacc0
+        url: https://www.cpan.org/src/5.0/perl-5.30.1.tar.xz
+      prereq_type: download
+    prereq_type: extract
+  system_depends:
+  - name: libreadline-dev
+    permitted_os: ["Ubuntu18.04"]
+  - name: libreadline6-dev
+    permitted_os: ["Debian8.11"]
+
 # java/8
 - name: java
   version: 8

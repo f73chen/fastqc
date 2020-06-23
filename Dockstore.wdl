@@ -10,7 +10,7 @@ input {
         String outputFileNamePrefix = ""
         String r1Suffix = "_R1"
         String r2Suffix = "_R2"
-        String docker = "quay.io/biocontainers/fastqc:0.11.9--0"
+        String docker = "g3chen/bcl2fastq:1.0"
 }
 Array[File] inputFastqs = select_all([fastqR1,fastqR2])
 String outputPrefixOne = if outputFileNamePrefix == "" then basename(inputFastqs[0], '.fastq.gz') + "_fastqc"
@@ -84,11 +84,11 @@ command <<<
 >>>
 
 parameter_meta {
- docker: "Docker container to run the workflow in"
  jobMemory: "Memory allocated to fastqc."
  inputFastq: "Input fastq file, gzipped."
  modules: "Names and versions of required modules."
  timeout: "Timeout in hours, needed to override imposed limits."
+ docker: "Docker container to run the workflow in"
 }
 
 runtime {
@@ -118,12 +118,12 @@ input {
 }
 
 parameter_meta {
- docker: "Docker container to run the workflow in"
  inputFile: "Input file, html or zip."
  extension: "Extension for a file (without leading dot)."
  customPrefix: "Prefix for making a file."
  jobMemory: "Memory allocated to this task."
  timeout: "Timeout, in hours, needed to override imposed limits."
+ docker: "Docker container to run the workflow in"
 }
 
 command <<<
