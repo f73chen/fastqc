@@ -10,7 +10,7 @@ input {
         String outputFileNamePrefix = ""
         String r1Suffix = "_R1"
         String r2Suffix = "_R2"
-        String docker = "g3chen/bcl2fastq:1.0"
+        String docker = "g3chen/fastqc:1.0"
 }
 Array[File] inputFastqs = select_all([fastqR1,fastqR2])
 String outputPrefixOne = if outputFileNamePrefix == "" then basename(inputFastqs[0], '.fastq.gz') + "_fastqc"
