@@ -1,6 +1,6 @@
 {
   "default_runtime_attributes": {
-    "docker": "g3chen/starmulti@sha256:0c35fb8426d1045d55544aec97305ec584ec3dfb80d41ccf1adba39a773bec04",
+    "docker": "g3chen/fastqc@sha256:3b62d6e507a2df8b987a2c05b546fa625a2d3c8bac38bde48f7cad7e4082c784",
     "docker_volume": "/home/ubuntu/Downloads/sample_data:/data"
   }
 }

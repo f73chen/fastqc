@@ -24,6 +24,6 @@ task find_tools {
         String message = read_string(stdout())
     }
     runtime {
-        docker: "g3chen/fastqc:1.0"
+        modules: "fastqc/0.11.8 perl/5.30"
     }
 }
