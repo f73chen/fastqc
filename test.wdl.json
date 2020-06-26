@@ -1,5 +1,6 @@
 {
   "fastQC.fastqR1": "/home/ubuntu/Downloads/sample_data/test_fastqc/adrenal_1.fastq.gz",
   "fastQC.fastqR2": "/home/ubuntu/Downloads/sample_data/test_fastqc/adrenal_2.fastq.gz",
-  "fastQC.runFastQC.modules": "perl/5.30 java/8 fastqc/0.11.8"
+  "fastQC.firstMateFastQC.modules": "perl/5.30 java/8 fastqc/0.11.8",
+  "fastQC.secondMateFastQC.modules": "perl/5.30 java/8 fastqc/0.11.8"
 }
