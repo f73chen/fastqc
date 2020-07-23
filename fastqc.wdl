@@ -124,7 +124,7 @@ command <<<
  if [[ ~{basename(inputFile)} != "~{customPrefix}.~{extension}" ]];then 
    cp ~{inputFile} "~{customPrefix}.~{extension}"
  else
-   ln -s ~{inputFile}
+   cp ~{inputFile} .
  fi
 >>>
 
